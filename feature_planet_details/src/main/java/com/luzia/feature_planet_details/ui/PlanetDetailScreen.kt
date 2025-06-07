@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -35,6 +34,7 @@ import com.luzia.core_domain.model.Loading
 import com.luzia.core_domain.model.NotLoaded
 import com.luzia.core_domain.model.PlanetProperties
 import com.luzia.core_ui.animation.Shimmer
+import com.luzia.core_ui.typography.AppTypography
 import com.luzia.feature_planet_details.R
 import com.luzia.feature_planet_details.viewmodel.PlanetDetailViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -70,7 +70,12 @@ fun PlanetDetailContent(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.planet_details)) },
+                title = {
+                    Text(
+                        text = stringResource(R.string.planet_details),
+                        style = AppTypography.H2
+                    )
+                },
                 navigationIcon = {
                     IconButton(onClick = { onBackClick() }) {
                         Icon(
@@ -107,14 +112,6 @@ fun PlanetDetailContent(
     }
 }
 
-
-@Composable
-private fun FullScreenLoader() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        CircularProgressIndicator()
-    }
-}
-
 @Composable
 private fun ErrorState(message: String, onRetry: () -> Unit) {
     Column(
@@ -146,7 +143,7 @@ fun PlanetDetailContent(
             .fillMaxSize()
             .padding(horizontal = 24.dp)
     ) {
-        Text(text = planet.name, style = MaterialTheme.typography.headlineMedium)
+        Text(text = planet.name, style = AppTypography.H1)
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -164,8 +161,8 @@ fun PlanetDetailContent(
 @Composable
 private fun DetailRow(label: String, value: String) {
     Row(modifier = Modifier.padding(vertical = 8.dp)) {
-        Text(text = "$label: ", style = MaterialTheme.typography.bodyLarge)
-        Text(text = value, style = MaterialTheme.typography.bodyLarge)
+        Text(text = "$label: ", style = AppTypography.H3)
+        Text(text = value, style = AppTypography.H3)
     }
 }
 
@@ -176,7 +173,7 @@ fun ShimmerPlanetDetails() {
             .fillMaxSize()
             .padding(horizontal = 24.dp, vertical = 32.dp)
     ) {
-        Shimmer(width = 180.dp, height = 28.dp) // Title
+        Shimmer(width = 180.dp, height = 28.dp)
         Spacer(modifier = Modifier.height(24.dp))
 
         repeat(5) {

@@ -16,7 +16,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,6 +36,7 @@ import com.luzia.core_domain.model.Loaded
 import com.luzia.core_domain.model.PlanetProperties
 import com.luzia.core_domain.model.PlanetSummary
 import com.luzia.core_ui.animation.Shimmer
+import com.luzia.core_ui.typography.AppTypography
 import com.luzia.feature_planets_list.R
 import com.luzia.feature_planets_list.viewmodel.PlanetsListViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -96,7 +96,12 @@ fun PlanetsListContent(
 
             }
 
-            is LoadState.Error -> item { Text(stringResource(R.string.error_loading_more)) }
+            is LoadState.Error -> item {
+                Text(
+                    stringResource(R.string.error_loading_more),
+                    style = AppTypography.H2
+                )
+            }
             else -> {}
         }
 
@@ -109,7 +114,10 @@ fun PlanetsListContent(
 
             is LoadState.Error -> item {
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                    Text(stringResource(R.string.error_loading_initial_data))
+                    Text(
+                        stringResource(R.string.error_loading_initial_data),
+                        style = AppTypography.H2
+                    )
                 }
             }
 
@@ -160,7 +168,7 @@ fun PlanetListItem(
 
             Text(
                 text = name,
-                style = MaterialTheme.typography.titleMedium
+                style = AppTypography.H2
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -168,7 +176,7 @@ fun PlanetListItem(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = stringResource(R.string.climate),
-                    style = MaterialTheme.typography.bodyMedium
+                    style = AppTypography.H3
                 )
 
                 Spacer(modifier = Modifier.width(8.dp))
@@ -176,7 +184,7 @@ fun PlanetListItem(
                 AnimatedVisibility(visible = detail is Loaded) {
                     Text(
                         text = detail?.data?.climate ?: "",
-                        style = MaterialTheme.typography.bodyMedium
+                        style = AppTypography.H3
                     )
                 }
 
@@ -190,7 +198,7 @@ fun PlanetListItem(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = stringResource(R.string.population),
-                    style = MaterialTheme.typography.bodyMedium
+                    style = AppTypography.H3
                 )
 
                 Spacer(modifier = Modifier.width(8.dp))
@@ -198,7 +206,7 @@ fun PlanetListItem(
                 AnimatedVisibility(visible = detail is Loaded) {
                     Text(
                         text = detail?.data?.population ?: "",
-                        style = MaterialTheme.typography.bodyMedium
+                        style = AppTypography.H3
                     )
                 }
 
