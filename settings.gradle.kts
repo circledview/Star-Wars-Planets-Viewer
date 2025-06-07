@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Planets Code Challenge"
 include(":app")
- 
+include(":core_data")
