@@ -1,6 +1,5 @@
 package com.luzia.core_data.paging
 
-import android.net.http.HttpException
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.luzia.core_data.api.SwApi
@@ -8,7 +7,6 @@ import com.luzia.core_data.dto.toPlanetSummary
 import com.luzia.core_domain.model.PlanetSummary
 import com.luzia.core_domain.utils.CoroutineDispatcherProvider
 import kotlinx.coroutines.withContext
-import java.io.IOException
 
 internal class PlanetsPagingSource(
     private val swApi: SwApi,
@@ -31,9 +29,7 @@ internal class PlanetsPagingSource(
                     prevKey = prevPage,
                     nextKey = nextPage
                 )
-            } catch (exception: IOException) {
-                LoadResult.Error(exception)
-            } catch (exception: HttpException) {
+            } catch (exception: Exception) {
                 LoadResult.Error(exception)
             }
         }
