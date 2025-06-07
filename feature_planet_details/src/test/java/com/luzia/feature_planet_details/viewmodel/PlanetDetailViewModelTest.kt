@@ -1,22 +1,31 @@
 package com.luzia.feature_planet_details.viewmodel
 
 import app.cash.turbine.test
-import com.luzia.core_domain.model.*
-import com.luzia.core_domain.repository.PlanetsRepository
+import com.luzia.core_domain.model.Failed
+import com.luzia.core_domain.model.Loaded
+import com.luzia.core_domain.model.Loading
+import com.luzia.core_domain.model.PlanetProperties
+import com.luzia.core_domain.usecase.GetPlanetDetailUseCase
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.*
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.TestCoroutineScheduler
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class PlanetDetailViewModelTest {
 
-    private val repository: PlanetsRepository = mockk()
+    private val getPlanetDetailUseCase: GetPlanetDetailUseCase = mockk()
     private val testScheduler = TestCoroutineScheduler()
     private val testDispatcher = StandardTestDispatcher(testScheduler)
 
@@ -48,9 +57,9 @@ class PlanetDetailViewModelTest {
 
     @Test
     fun `init fetches planet detail and emits Loading then Loaded`() = runTest(testScheduler) {
-        coEvery { repository.getPlanetDetail(uid) } returns detail
+        coEvery { getPlanetDetailUseCase(uid) } returns detail
 
-        val viewModel = PlanetDetailViewModel(repository, uid)
+        val viewModel = PlanetDetailViewModel(getPlanetDetailUseCase, uid)
 
         viewModel.state.test {
             assertTrue(awaitItem() is Loading)
@@ -62,9 +71,9 @@ class PlanetDetailViewModelTest {
     @Test
     fun `init handles exception and emits Failed`() = runTest(testScheduler) {
         val exception = RuntimeException("API error")
-        coEvery { repository.getPlanetDetail(uid) } throws exception
+        coEvery { getPlanetDetailUseCase(uid) } throws exception
 
-        val viewModel = PlanetDetailViewModel(repository, uid)
+        val viewModel = PlanetDetailViewModel(getPlanetDetailUseCase, uid)
 
         viewModel.state.test {
             assertTrue(awaitItem() is Loading)
@@ -78,13 +87,13 @@ class PlanetDetailViewModelTest {
     @Test
     fun `retry fetches again after failure`() = runTest(testScheduler) {
         var callCount = 0
-        coEvery { repository.getPlanetDetail(uid) } answers {
+        coEvery { getPlanetDetailUseCase(uid) } answers {
             callCount++
             if (callCount == 1) throw RuntimeException("first fail")
             detail
         }
 
-        val viewModel = PlanetDetailViewModel(repository, uid)
+        val viewModel = PlanetDetailViewModel(getPlanetDetailUseCase, uid)
 
         viewModel.state.test {
             assertTrue(awaitItem() is Loading)
@@ -100,9 +109,9 @@ class PlanetDetailViewModelTest {
 
     @Test
     fun `initial state is Loading immediately in init`() = runTest(testScheduler) {
-        coEvery { repository.getPlanetDetail(uid) } returns detail
+        coEvery { getPlanetDetailUseCase(uid) } returns detail
 
-        val viewModel = PlanetDetailViewModel(repository, uid)
+        val viewModel = PlanetDetailViewModel(getPlanetDetailUseCase, uid)
         assertTrue(viewModel.state.value is Loading)
     }
 }

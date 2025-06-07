@@ -10,7 +10,8 @@ import com.luzia.core_domain.model.Loaded
 import com.luzia.core_domain.model.Loading
 import com.luzia.core_domain.model.PlanetProperties
 import com.luzia.core_domain.model.PlanetSummary
-import com.luzia.core_domain.repository.PlanetsRepository
+import com.luzia.core_domain.usecase.GetPlanetDetailUseCase
+import com.luzia.core_domain.usecase.GetPlanetsPagedFlowUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,11 +19,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class PlanetsListViewModel(
-    private val repository: PlanetsRepository
+    private val getPlanetDetailUseCase: GetPlanetDetailUseCase,
+    getPlanetsPagedFlowUseCase: GetPlanetsPagedFlowUseCase,
 ) : ViewModel() {
 
     val planetsPagingFlow: Flow<PagingData<PlanetSummary>> =
-        repository.getPlanetsPaged().cachedIn(viewModelScope)
+        getPlanetsPagedFlowUseCase().cachedIn(viewModelScope)
 
     private val _planetDetailsState =
         MutableStateFlow<Map<String, LoadableData<PlanetProperties>>>(emptyMap())
@@ -37,7 +39,7 @@ class PlanetsListViewModel(
 
         viewModelScope.launch {
             try {
-                val detail = repository.getPlanetDetail(uid)
+                val detail = getPlanetDetailUseCase(uid)
                 _planetDetailsState.update { it + (uid to Loaded(detail)) }
             } catch (e: Exception) {
                 _planetDetailsState.update {

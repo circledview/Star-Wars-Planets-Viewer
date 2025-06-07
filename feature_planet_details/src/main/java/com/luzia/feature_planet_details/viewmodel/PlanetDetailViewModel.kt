@@ -8,13 +8,13 @@ import com.luzia.core_domain.model.Loaded
 import com.luzia.core_domain.model.Loading
 import com.luzia.core_domain.model.NotLoaded
 import com.luzia.core_domain.model.PlanetProperties
-import com.luzia.core_domain.repository.PlanetsRepository
+import com.luzia.core_domain.usecase.GetPlanetDetailUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class PlanetDetailViewModel(
-    private val repository: PlanetsRepository,
+    private val getPlanetDetailUseCase: GetPlanetDetailUseCase,
     private val uid: String
 ) : ViewModel() {
 
@@ -29,7 +29,7 @@ class PlanetDetailViewModel(
         _state.value = Loading
         viewModelScope.launch {
             try {
-                val detail = repository.getPlanetDetail(uid)
+                val detail = getPlanetDetailUseCase(uid)
                 _state.value = Loaded(detail)
             } catch (e: Exception) {
                 _state.value = Failed(

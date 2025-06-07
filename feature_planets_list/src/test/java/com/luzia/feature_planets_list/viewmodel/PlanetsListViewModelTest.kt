@@ -4,7 +4,8 @@ import app.cash.turbine.test
 import com.luzia.core_domain.model.Failed
 import com.luzia.core_domain.model.Loaded
 import com.luzia.core_domain.model.PlanetProperties
-import com.luzia.core_domain.repository.PlanetsRepository
+import com.luzia.core_domain.usecase.GetPlanetDetailUseCase
+import com.luzia.core_domain.usecase.GetPlanetsPagedFlowUseCase
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
@@ -20,13 +21,13 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
 class PlanetsListViewModelTest {
-    private val repository: PlanetsRepository = mockk()
+    private val getPlanetsPagedFlowUseCase: GetPlanetsPagedFlowUseCase = mockk()
+    private val getPlanetDetailUseCase: GetPlanetDetailUseCase = mockk()
     private lateinit var viewModel: PlanetsListViewModel
 
     private val testScheduler = TestCoroutineScheduler()
@@ -36,8 +37,11 @@ class PlanetsListViewModelTest {
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
-        every { repository.getPlanetsPaged() } returns flowOf()
-        viewModel = PlanetsListViewModel(repository)
+        every { getPlanetsPagedFlowUseCase() } returns flowOf()
+        viewModel = PlanetsListViewModel(
+            getPlanetDetailUseCase,
+            getPlanetsPagedFlowUseCase,
+        )
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -65,7 +69,7 @@ class PlanetsListViewModelTest {
                 created = "2024-01-01",
                 edited = "2025-01-01"
             )
-            coEvery { repository.getPlanetDetail(uid) } returns detail
+            coEvery { getPlanetDetailUseCase(uid) } returns detail
             viewModel.planetDetailsRequested(uid)
 
             viewModel.planetDetailsState.test {
@@ -94,7 +98,7 @@ class PlanetsListViewModelTest {
             created = "2024-01-01",
             edited = "2025-01-01"
         )
-        coEvery { repository.getPlanetDetail(any()) } returns detail
+        coEvery { getPlanetDetailUseCase(any()) } returns detail
 
         viewModel.planetDetailsRequested(uid)
         advanceUntilIdle()
@@ -102,7 +106,7 @@ class PlanetsListViewModelTest {
         viewModel.planetDetailsRequested(uid)
         advanceUntilIdle()
 
-        coVerify(exactly = 1) { repository.getPlanetDetail(uid) }
+        coVerify(exactly = 1) { getPlanetDetailUseCase(uid) }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -110,7 +114,7 @@ class PlanetsListViewModelTest {
     fun `planetDetailsRequested catches exceptions and does not crash and set state to failed`() =
         runTest(testScheduler) {
             val uid = "errorPlanet"
-            coEvery { repository.getPlanetDetail(uid) } throws RuntimeException("API error")
+            coEvery { getPlanetDetailUseCase(uid) } throws RuntimeException("API error")
 
             viewModel.planetDetailsRequested(uid)
             advanceUntilIdle()
@@ -138,7 +142,7 @@ class PlanetsListViewModelTest {
             edited = ""
         )
 
-        coEvery { repository.getPlanetDetail(uid) } coAnswers {
+        coEvery { getPlanetDetailUseCase(uid) } coAnswers {
             advanceUntilIdle() // simulate async delay
             detail
         }

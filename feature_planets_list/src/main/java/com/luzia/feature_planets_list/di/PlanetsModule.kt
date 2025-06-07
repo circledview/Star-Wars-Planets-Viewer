@@ -5,5 +5,5 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val planetsModule = module {
-    viewModel { PlanetsListViewModel(get()) }
+    viewModel { PlanetsListViewModel(get(), get()) }
 }
