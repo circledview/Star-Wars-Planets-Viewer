@@ -25,7 +25,7 @@ import org.junit.Test
 import org.junit.rules.RuleChain
 import org.koin.dsl.module
 
-class EndToEndTests {
+class UITests {
     private val getPlanetDetailUseCase: GetPlanetDetailUseCase = mockk()
     private val getPlanetsPagedFlowUseCase: GetPlanetsPagedFlowUseCase = mockk()
     private val instrumentedTestModule = module {
