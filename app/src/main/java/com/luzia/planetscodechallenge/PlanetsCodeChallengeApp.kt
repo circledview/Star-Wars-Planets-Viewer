@@ -12,12 +12,16 @@ import org.koin.core.logger.Level
 
 class PlanetsCodeChallengeApp : Application() {
 
+    companion object {
+        val applicationDIModules = dataModule + domainModule + planetsModule + planetDetailsModule
+    }
+
     override fun onCreate() {
         super.onCreate()
         startKoin {
             androidLogger(if (BuildConfig.DEBUG) Level.INFO else Level.NONE)
             androidContext(this@PlanetsCodeChallengeApp)
-            modules(listOf(dataModule, domainModule, planetsModule, planetDetailsModule))
+            modules(applicationDIModules)
         }
     }
 

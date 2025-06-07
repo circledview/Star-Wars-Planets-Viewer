@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
-import com.luzia.planetscodechallenge.navigation.NavigationGraph
+import com.luzia.planetscodechallenge.navigation.AppNavigationGraph
 import com.luzia.planetscodechallenge.ui.theme.PlanetsCodeChallengeTheme
 
 class MainActivity : ComponentActivity() {
@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PlanetsCodeChallengeTheme {
-                NavigationGraph(Modifier.fillMaxSize())
+                AppNavigationGraph(Modifier.fillMaxSize())
             }
         }
     }

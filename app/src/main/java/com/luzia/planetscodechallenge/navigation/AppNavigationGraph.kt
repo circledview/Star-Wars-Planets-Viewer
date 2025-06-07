@@ -17,7 +17,7 @@ object PlanetsList
 data class PlanetDetails(val uid: String)
 
 @Composable
-fun NavigationGraph(modifier: Modifier = Modifier) {
+fun AppNavigationGraph(modifier: Modifier = Modifier) {
 
     val navController = rememberNavController()
 
