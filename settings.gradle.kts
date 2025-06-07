@@ -23,3 +23,4 @@ rootProject.name = "Planets Code Challenge"
 include(":app")
 include(":core_data")
 include(":core_domain")
+include(":feature_planets_list")
