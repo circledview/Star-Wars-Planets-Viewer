@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="back">Back</string>
+    <string name="planet_details">Planet Details</string>
+    <string name="error">Error: %1$s</string>
+    <string name="retry">Retry</string>
+    <string name="climate">Climate</string>
+    <string name="population">Population</string>
+    <string name="diameter">Diameter</string>
+    <string name="gravity">Gravity</string>
+    <string name="terrain">Terrain</string>
+</resources>

@@ -56,7 +56,7 @@ dependencies {
     implementation(libs.koin.androidx.compose)
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
-    testImplementation("app.cash.turbine:turbine:1.2.0")
+    testImplementation(libs.turbine)
     testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
