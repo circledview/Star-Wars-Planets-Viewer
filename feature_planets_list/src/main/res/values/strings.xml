@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_loading_more">Error loading more</string>
+    <string name="error_loading_initial_data">Error loading initial data</string>
+    <string name="planet_name_formatted">"Planet name: %1$s. "</string>
+    <string name="climate_formatted">"Climate: %1$s. "</string>
+    <string name="population_formatted">Population: %1$s.</string>
+    <string name="loading">loading</string>
+    <string name="climate">"Climate: "</string>
+    <string name="population">"Population: "</string>
+
+</resources>
