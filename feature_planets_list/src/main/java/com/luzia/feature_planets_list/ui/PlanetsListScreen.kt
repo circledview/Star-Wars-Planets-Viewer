@@ -51,13 +51,14 @@ fun PlanetsListScreen(
     val pagingItems = viewModel.planetsPagingFlow.collectAsLazyPagingItems()
     val planetsDetails = viewModel.planetDetailsState.collectAsState().value
 
-    Scaffold(modifier.fillMaxWidth()) {
+    Scaffold(modifier.fillMaxWidth()) { it ->
         PlanetsListContent(
             pagingItems,
             planetsDetails,
             onPlanetDetailsRequested = { viewModel.planetDetailsRequested(it) },
             onPlanetClick = onPlanetClick,
             modifier = Modifier.padding(it)
+
         )
     }
 

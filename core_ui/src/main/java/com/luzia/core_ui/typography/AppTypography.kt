@@ -23,10 +23,4 @@ object AppTypography {
         fontWeight = FontWeight.Medium,
         lineHeight = 24.sp
     )
-
-    val Body = TextStyle(
-        fontSize = 16.sp,
-        fontWeight = FontWeight.Normal,
-        lineHeight = 22.sp
-    )
 }

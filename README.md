@@ -8,27 +8,26 @@ A modern Android application built as a coding challenge for **Luzia**. It demon
 
 ## 📆 Project Modules
 
-
-| Module        | Responsibilty                                             |
-|--------------|--------------------------------------------------|
-|feature_planets_list  |  Planet list screen + ViewModel |
-| feature_planet_details    | Planet details screen + ViewModel  |
-| core_domain     | Domain layer: models + use cases            |
-| core_data       | Data layer: repository implementations and api calls            |
-| core_ui      | Shared UI components, theming, animations |
+| Module                 | Responsibilty                                        |
+|------------------------|------------------------------------------------------|
+| feature_planets_list   | Planet list screen + ViewModel                       |
+| feature_planet_details | Planet details screen + ViewModel                    |
+| core_domain            | Domain layer: models + use cases                     |
+| core_data              | Data layer: repository implementations and api calls |
+| core_ui                | Shared UI components, theming, animations            |
 
 ## 🛠️ Tech Stack
 
-| Layer         | Tech                                                                 |
-|---------------|----------------------------------------------------------------------|
-| UI            | Jetpack Compose, Material 3, Animation APIs, StateFlow               |
-| Architecture  | MVVM + Clean Architecture (with UseCases, Repository Pattern)        |
-| Pagination    | Jetpack Paging 3                                                     |
+| Layer                | Tech                                                          |
+|----------------------|---------------------------------------------------------------|
+| UI                   | Jetpack Compose, Material 3, Animation APIs, StateFlow        |
+| Architecture         | MVVM + Clean Architecture (with UseCases, Repository Pattern) |
+| Pagination           | Jetpack Paging 3                                              |
 | Dependency Injection | Koin                                                          |
-| Coroutines    | Kotlinx Coroutines, Flow                                             |
-| Networking    | Retrofit                                                             |
-| Testing       | JUnit4, MockK, Turbine, Coroutine Test                               |
-| Build         | Gradle (Kotlin DSL), Modularization                                  |
+| Coroutines           | Kotlinx Coroutines, Flow                                      |
+| Networking           | Retrofit                                                      |
+| Testing              | JUnit4, MockK, Turbine, Coroutine Test                        |
+| Build                | Gradle (Kotlin DSL), Modularization                           |
 
 ---
 
@@ -45,11 +44,11 @@ The app follows **Clean Architecture** with **separation of concerns** between t
 
 ## 🧪 Testing Strategy
 
-| Layer        | Tests                                             |
-|--------------|--------------------------------------------------|
-| ViewModel    | Planet list and detail screens, loading & error  |
-| UseCases     | Repository delegation, business logic            |
-| Paging       | Smoke tests for PagingData via flows             |
+| Layer     | Tests                                           |
+|-----------|-------------------------------------------------|
+| ViewModel | Planet list and detail screens, loading & error |
+| UseCases  | Repository delegation, business logic           |
+| Paging    | Smoke tests for PagingData via flows            |
 
 Tools used:
 - **Turbine**: Flow testing

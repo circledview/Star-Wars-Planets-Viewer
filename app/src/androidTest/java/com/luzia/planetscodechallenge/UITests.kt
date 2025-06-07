@@ -53,8 +53,8 @@ class UITests {
     val ruleChain: RuleChain = RuleChain.outerRule(koinTestRule).around(composeRule)
 
     @Test
-    fun ShouldShowProperList() = runTest {
-        val testItems = buildList<PlanetSummary> {
+    fun shouldShowProperList() = runTest {
+        val testItems = buildList {
             repeat(10) { add(PlanetSummary("$it", "Planet $it", "https://luzia.com")) }
         }
 
@@ -85,7 +85,7 @@ class UITests {
 
 
     @Test
-    fun ShouldShowPlanetDetailsAfterClickOnItem() = runTest {
+    fun shouldShowPlanetDetailsAfterClickOnItem() = runTest {
         val testItems = buildList {
             repeat(10) { add(PlanetSummary("$it", "Planet $it", "https://luzia.com")) }
         }

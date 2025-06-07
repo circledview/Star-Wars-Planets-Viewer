@@ -33,7 +33,7 @@ class PlanetDetailViewModel(
                 _state.value = Loaded(detail)
             } catch (e: Exception) {
                 _state.value = Failed(
-                    throwble = e,
+                    throwable = e,
                 )
             }
         }

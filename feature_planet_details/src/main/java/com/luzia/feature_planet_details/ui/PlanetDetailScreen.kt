@@ -46,7 +46,7 @@ fun PlanetDetailScreen(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val viewModel = koinViewModel<PlanetDetailViewModel>() {
+    val viewModel = koinViewModel<PlanetDetailViewModel> {
         parametersOf(uid)
     }
     val state by viewModel.state.collectAsState()

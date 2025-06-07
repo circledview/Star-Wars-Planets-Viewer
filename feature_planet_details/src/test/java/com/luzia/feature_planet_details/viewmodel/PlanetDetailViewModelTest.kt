@@ -80,7 +80,7 @@ class PlanetDetailViewModelTest {
             advanceUntilIdle()
             val failedState = awaitItem()
             assertTrue(failedState is Failed)
-            assertEquals(exception, (failedState as Failed).throwble)
+            assertEquals(exception, (failedState as Failed).throwable)
         }
     }
 
