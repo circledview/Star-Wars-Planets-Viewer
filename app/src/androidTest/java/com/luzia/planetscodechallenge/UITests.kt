@@ -78,7 +78,6 @@ class UITests {
             composeRule.onNodeWithText("Planet 1").isDisplayed()
         }
 
-        // Verify
         composeRule.onNodeWithText("Planet 0").assertExists()
         composeRule.onNodeWithText("Planet 5").assertExists()
     }
