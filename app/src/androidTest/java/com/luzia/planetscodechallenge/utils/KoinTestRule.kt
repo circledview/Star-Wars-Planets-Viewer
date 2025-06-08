@@ -10,6 +10,18 @@ import org.koin.core.context.GlobalContext.unloadKoinModules
 import org.koin.core.context.loadKoinModules
 import org.koin.core.module.Module
 
+/**
+ * A JUnit TestRule for managing Koin modules in Android instrumentation tests.
+ *
+ * This rule ensures that Koin is started with the specified modules before each test
+ * and that the modules are unloaded after each test.
+ *
+ * If Koin is not already started, it will be initialized with the provided modules and
+ * the application context from the instrumentation registry.
+ * If Koin is already running, the provided modules will be loaded.
+ *
+ * @param modules The list of Koin modules to be loaded for the test.
+ */
 class KoinTestRule(
     private val modules: List<Module>
 ) : TestWatcher() {

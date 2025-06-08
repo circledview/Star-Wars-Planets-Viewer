@@ -20,7 +20,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -28,6 +27,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -49,7 +49,7 @@ fun PlanetsListScreen(
 
     val viewModel = koinViewModel<PlanetsListViewModel>()
     val pagingItems = viewModel.planetsPagingFlow.collectAsLazyPagingItems()
-    val planetsDetails = viewModel.planetDetailsState.collectAsState().value
+    val planetsDetails = viewModel.planetDetailsState.collectAsStateWithLifecycle().value
 
     Scaffold(modifier.fillMaxWidth()) { it ->
         PlanetsListContent(
