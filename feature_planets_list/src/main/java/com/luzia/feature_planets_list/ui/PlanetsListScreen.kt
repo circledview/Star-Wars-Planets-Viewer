@@ -75,7 +75,7 @@ fun PlanetsListContent(
 ) {
 
     LazyColumn(modifier.fillMaxSize()) {
-        items(pagingItems.itemCount) { index ->
+        items(pagingItems.itemCount, key = { index -> pagingItems[index]?.uid ?: index }) { index ->
             pagingItems[index]?.let { planet ->
                 LaunchedEffect(planet.uid) {
                     onPlanetDetailsRequested(planet.uid)
@@ -103,6 +103,7 @@ fun PlanetsListContent(
                     style = AppTypography.H2
                 )
             }
+
             else -> {}
         }
 
